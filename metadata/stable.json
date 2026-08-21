@@ -1,0 +1,14 @@
+{
+  "product": "CX Browser",
+  "version": "0.1.0",
+  "channel": "stable",
+  "platform": "windows",
+  "arch": "x64",
+  "mandatory": false,
+  "securityUpdate": false,
+  "releaseDate": "2026-08-21T15:14:54.944Z",
+  "releaseNotes": [
+    "Verbesserungen und Fehlerbehebungen."
+  ],
+  "sha256": "0a777eb14c4ce601f9c5b64854e1b52a377a53633fcafd530d9741a4625893d4"
+}

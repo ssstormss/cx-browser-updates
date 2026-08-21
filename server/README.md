@@ -53,27 +53,31 @@ Alle Schritte bis einschließlich `release:commit` laufen **komplett
 lokal** (auch das Git-Commit) — nichts wird ins Internet hochgeladen. Erst
 `git push` macht eine Version tatsächlich live.
 
-### Aktuelles Setup: GitHub Pages + Git LFS für updates.veilgard.de
+### Aktuelles Setup: GitHub Pages für updates.veilgard.de
 
-Dieser Ordner ist bereits ein eigenes lokales Git-Repository (`git init` +
-`git lfs install` wurden hier ausgeführt, `.gitattributes` trackt `*.exe`/
-`*.blockmap` per LFS, da sie über GitHub Pages, 100-MB-Hardlimit von
-normalem Git). Einmalig einzurichten:
+Dieser Ordner ist bereits ein eigenes lokales Git-Repository (`git init`
+wurde hier ausgeführt) und bereits mit GitHub verbunden
+(`github.com/ssstormss/cx-browser-updates`).
 
-1. Auf github.com ein neues **öffentliches** Repo anlegen, z. B. `cx-browser-updates` (leer lassen, keine README/Lizenz automatisch erzeugen).
-2. In diesem Ordner:
-   ```bash
-   git remote add origin https://github.com/<dein-username>/cx-browser-updates.git
-   git push -u origin master
-   ```
-3. Im GitHub-Repo unter **Settings → Pages** bei "Custom domain" `updates.veilgard.de` eintragen.
-4. Bei deinem Domain-Anbieter (wo `veilgard.de` registriert ist) einen DNS-Eintrag anlegen:
-   ```
-   Typ:  CNAME
-   Name: updates
-   Wert: <dein-username>.github.io
-   ```
-5. Warten, bis der DNS-Eintrag propagiert ist (paar Minuten bis Stunden) — GitHub stellt danach automatisch ein HTTPS-Zertifikat aus.
+**Wichtig zur Dateigröße:** GitHub Pages liefert Git-LFS-Dateien NICHT
+korrekt aus (es gibt nur die kleine Zeiger-Datei zurück statt der echten
+Binärdatei) — Git LFS ist deshalb hier **bewusst nicht** im Einsatz. Damit
+normale `git push`-Uploads funktionieren, muss jede einzelne Datei unter
+100 MB bleiben (GitHubs Hardlimit ohne LFS). `electron-builder.yml` schränkt
+deshalb die mitgelieferten Chromium-Sprachpakete auf `de`/`en-US` ein
+(`electronLanguages`), was den Installer von ~100 MB auf ~92 MB bringt.
+**Falls ein zukünftiger Installer wieder über 100 MB wächst**, funktioniert
+dieses Setup nicht mehr — dann muss auf einen anderen Host für den
+`releases/`-Ordner gewechselt werden (z. B. GitHub Releases als Assets,
+Cloudflare R2, S3), da Git LFS auf GitHub Pages keine Option ist.
+
+Einmalig eingerichtet wurde bereits (Stand: 2026-08-21, funktioniert und live geprüft):
+
+1. GitHub-Repo `github.com/ssstormss/cx-browser-updates` (öffentlich).
+2. `git remote add origin ...` + `git push -u origin master`.
+3. Im GitHub-Repo unter **Settings → Pages**: Source = "Deploy from a branch", Branch `master` / `(root)`, Custom domain `updates.veilgard.de`.
+4. Beim Domain-Anbieter von `veilgard.de` ein DNS-Recorde angelegt: `CNAME updates → ssstormss.github.io`.
+5. `.nojekyll` im Repo-Root committet — ohne diese Datei verarbeitet/ignoriert Githubs Jekyll-Build bestimmte Dateien (z. B. würden `.md`-Dateien umgewandelt, Punkt-Dateien ignoriert).
 
 Ab dann reicht bei jedem neuen Release:
 
