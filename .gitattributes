@@ -1,0 +1,4 @@
+# Installer-Binaries sind teils >100 MB (GitHub-Hardlimit für normale
+# Git-Objekte) - werden deshalb über Git LFS verwaltet.
+*.exe filter=lfs diff=lfs merge=lfs -text
+*.blockmap filter=lfs diff=lfs merge=lfs -text
