@@ -1,17 +1,16 @@
 {
   "product": "CX Browser",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "channel": "stable",
   "platform": "windows",
   "arch": "x64",
   "mandatory": false,
   "securityUpdate": false,
-  "releaseDate": "2026-08-21T15:58:23.121Z",
+  "releaseDate": "2026-08-21T16:11:58.809Z",
   "releaseNotes": [
-    "Added a built-in ad blocker (Settings -> Privacy) that blocks requests to known ad servers and ad exchanges, with a shield indicator in the address bar showing how many ads were blocked on the current page",
-    "Fixed recently-closed tabs always showing \"CX Browser\" instead of the actual page title for internal pages (New Tab, Settings, History, Bookmarks, Downloads, About)",
-    "Release changelogs are now written in English",
-    "Added Discord webhook support to announce new releases automatically"
+    "Fixed the ad blocker not working on YouTube: added a dedicated in-page ad skipper that detects and auto-skips video ads (YouTube serves ads through the same video infrastructure as regular content, so plain network-domain blocking alone cannot catch them)",
+    "Blocked additional YouTube/Google ad-tracking request patterns (ad pacing pings, pagead endpoints)",
+    "Hid companion/masthead/in-feed ad banners on YouTube via cosmetic filtering"
   ],
-  "sha256": "8540e448a031e9bc59be418dabf69ef75d8bb82902d962439bc9eb358902e476"
+  "sha256": "3c55e1dcf16515abfe387f9423be80986ad8ceac6fbfcfa9c034a5d611135031"
 }
