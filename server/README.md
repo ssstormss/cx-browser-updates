@@ -49,20 +49,46 @@ npm run release:metadata -- --channel=stable [--mandatory] [--security]
 npm run release:publish -- --channel=stable
 ```
 
-Alle drei Schritte laufen **komplett lokal** — nichts wird ins Internet
-hochgeladen. Erst der letzte, manuelle Schritt macht eine Version live:
+Alle Schritte bis einschließlich `release:commit` laufen **komplett
+lokal** (auch das Git-Commit) — nichts wird ins Internet hochgeladen. Erst
+`git push` macht eine Version tatsächlich live.
+
+### Aktuelles Setup: GitHub Pages + Git LFS für updates.veilgard.de
+
+Dieser Ordner ist bereits ein eigenes lokales Git-Repository (`git init` +
+`git lfs install` wurden hier ausgeführt, `.gitattributes` trackt `*.exe`/
+`*.blockmap` per LFS, da sie über GitHub Pages, 100-MB-Hardlimit von
+normalem Git). Einmalig einzurichten:
+
+1. Auf github.com ein neues **öffentliches** Repo anlegen, z. B. `cx-browser-updates` (leer lassen, keine README/Lizenz automatisch erzeugen).
+2. In diesem Ordner:
+   ```bash
+   git remote add origin https://github.com/<dein-username>/cx-browser-updates.git
+   git push -u origin master
+   ```
+3. Im GitHub-Repo unter **Settings → Pages** bei "Custom domain" `updates.veilgard.de` eintragen.
+4. Bei deinem Domain-Anbieter (wo `veilgard.de` registriert ist) einen DNS-Eintrag anlegen:
+   ```
+   Typ:  CNAME
+   Name: updates
+   Wert: <dein-username>.github.io
+   ```
+5. Warten, bis der DNS-Eintrag propagiert ist (paar Minuten bis Stunden) — GitHub stellt danach automatisch ein HTTPS-Zertifikat aus.
+
+Ab dann reicht bei jedem neuen Release:
 
 ```bash
-# Beispiel mit rsync über SSH:
-rsync -avz cx-browser-updates/ user@server:/var/www/updates.veilgard.de/
-
-# Beispiel mit AWS S3:
-aws s3 sync cx-browser-updates/ s3://updates.veilgard.de/ --acl public-read
+npm run release              # baut, verifiziert, kopiert, committet lokal
+cd cx-browser-updates && git push   # macht die neue Version live
 ```
 
-Trage die tatsächliche HTTPS-Basis-URL in CX Browser unter
-**Einstellungen → Updates** ein (Standard-Platzhalter:
-`https://updates.veilgard.de`).
+**Alternativen** (falls du später umsteigen willst): Amazon S3 + CloudFront, Azure Static Web Apps, Cloudflare Pages/R2, oder ein eigener nginx-Server — jeder Static-File-Host mit gültigem HTTPS-Zertifikat funktioniert, da CX Browser nur normale HTTPS-GET-Requests macht.
+
+Die Server-Base-URL ist in CX Browser **bewusst keine Nutzer-Einstellung**
+(ein manipulierbarer Update-Server wäre ein Sicherheitsrisiko) — sie steht
+fest in `src/shared/types.ts` (`DEFAULT_UPDATE_SETTINGS.serverBaseUrl`) und
+in `electron-builder.yml` (`publish.url`), aktuell auf
+`https://updates.veilgard.de` gesetzt.
 
 ## Lokal testen
 
