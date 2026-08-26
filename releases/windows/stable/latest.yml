@@ -1,8 +1,8 @@
-version: 0.2.1
+version: 0.2.2
 files:
-  - url: CX Browser-Setup-0.2.1.exe
-    sha512: LQcsYNwPQUYwSvFR/HS0gjM9I6XMxgXqtrsQ7NK3dkc1Aj2KN+/Qan4sIK7QxN5G/YLx8oS2zhYgfn8Q4FiKIg==
-    size: 96594780
-path: CX Browser-Setup-0.2.1.exe
-sha512: LQcsYNwPQUYwSvFR/HS0gjM9I6XMxgXqtrsQ7NK3dkc1Aj2KN+/Qan4sIK7QxN5G/YLx8oS2zhYgfn8Q4FiKIg==
-releaseDate: '2026-08-21T16:11:39.139Z'
+  - url: CX Browser-Setup-0.2.2.exe
+    sha512: M+FKkXLF/LF8iDR5qmfYjXIe2Lwk+QsRRN22iFSMtxXgMAx3Zt8dwXhH+pcBmVEYam3PVPJY5AOXUrlY2CfMOA==
+    size: 96595572
+path: CX Browser-Setup-0.2.2.exe
+sha512: M+FKkXLF/LF8iDR5qmfYjXIe2Lwk+QsRRN22iFSMtxXgMAx3Zt8dwXhH+pcBmVEYam3PVPJY5AOXUrlY2CfMOA==
+releaseDate: '2026-08-26T00:21:55.644Z'

@@ -1,16 +1,16 @@
 {
   "product": "CX Browser",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "channel": "stable",
   "platform": "windows",
   "arch": "x64",
-  "mandatory": false,
+  "mandatory": true,
   "securityUpdate": false,
-  "releaseDate": "2026-08-21T16:11:58.809Z",
+  "releaseDate": "2026-08-26T00:22:21.765Z",
   "releaseNotes": [
-    "Fixed the ad blocker not working on YouTube: added a dedicated in-page ad skipper that detects and auto-skips video ads (YouTube serves ads through the same video infrastructure as regular content, so plain network-domain blocking alone cannot catch them)",
-    "Blocked additional YouTube/Google ad-tracking request patterns (ad pacing pings, pagead endpoints)",
-    "Hid companion/masthead/in-feed ad banners on YouTube via cosmetic filtering"
+    "CX Browser is temporarily taken offline while we resolve an issue - we're very sorry for the disruption",
+    "Browsing is disabled for now; opening the app shows a short notice with a link to our Discord for details",
+    "No action needed on your end - this update will re-enable itself automatically once the issue is resolved"
   ],
-  "sha256": "3c55e1dcf16515abfe387f9423be80986ad8ceac6fbfcfa9c034a5d611135031"
+  "sha256": "2f220e4f695d46639481f1dd302f5393d7c8926dd37c53730c2d21678710231f"
 }
